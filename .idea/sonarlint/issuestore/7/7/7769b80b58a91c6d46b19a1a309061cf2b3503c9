@@ -1,0 +1,15 @@
+
+X
+java:S1128"=Remove this unused import 'com.fpt.mapper.OrderDetailMapper'.(ë¶ÁØüÿÿÿÿ
+o
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(žãÊ“
+t
+java:S2293!"YReplace the type specification in this constructor call with the diamond operator ("<>").(êÂ³Ëÿÿÿÿÿ
+o
+java:S2293'"YReplace the type specification in this constructor call with the diamond operator ("<>").(­ÏÅð
+t
+java:S2293-"YReplace the type specification in this constructor call with the diamond operator ("<>").(º°Õâÿÿÿÿÿ
+\
+java:S3655'"FCall "dto.isPresent()" or "!dto.isEmpty()" before accessing the value.(­ÏÅð
+w
+java:S3655-"\Call "orderDetailDTO.isPresent()" or "!orderDetailDTO.isEmpty()" before accessing the value.(º°Õâÿÿÿÿÿ
