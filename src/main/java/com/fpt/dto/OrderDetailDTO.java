@@ -22,7 +22,9 @@ public class OrderDetailDTO extends OrderDetail implements Serializable {
 
     private Double price;
 
-    private Integer size;
+    private String size;
+
+    private String color;
 
     private Integer quantity;
 

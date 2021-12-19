@@ -31,6 +31,15 @@ public class Order implements Serializable {
     @Column(name = "address")
     private String address;
 
+    @Column(name = "name")
+    private String name;
+
+    @Column(name = "email")
+    private String email;
+
+    @Column(name = "phone")
+    private String phone;
+
     @Column(name = "status")
     private Integer status;
 }

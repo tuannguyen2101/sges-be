@@ -19,6 +19,12 @@ public class OrderDTO {
 
     private String address;
 
+    private String name;
+
+    private String email;
+
+    private String phone;
+
     private Integer status;
 
 }

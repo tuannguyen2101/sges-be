@@ -40,8 +40,8 @@ public class OrdDetController {
     }
 
     @GetMapping("/guest/orderdetail/{id}")
-    public ResponseEntity<OrderDetail> findByOrderId(@PathVariable(value = "id") Integer id){
+    public ResponseEntity<OrderDetailDTO> findByOrderId(@PathVariable(value = "id") Integer id){
         Optional<OrderDetailDTO> orderDetailDTO = Optional.ofNullable(this.orderDetailService.findByOrderId(id));
-        return new ResponseEntity<OrderDetail>(orderDetailDTO.get(),HttpStatus.OK);
+        return new ResponseEntity<OrderDetailDTO>(orderDetailDTO.get(),HttpStatus.OK);
     }
 }

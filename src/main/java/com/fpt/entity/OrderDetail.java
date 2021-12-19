@@ -28,11 +28,11 @@ public class OrderDetail implements Serializable {
     @JoinColumn(name = "product_id")
     private Product product;
 
-    @Column(name = "price")
-    private Double price;
-
     @Column(name = "size")
-    private Integer size;
+    private String size;
+
+    @Column(name = "color")
+    private String color;
 
     @Column(name = "quantity")
     private Integer quantity;

@@ -39,7 +39,9 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Override
     public OrderDetailDTO create(OrderDetailDTO orderDetailDTO) {
-        return this.orderDetailMapper.crvToDTO(this.orderDetailRepo.save(this.orderDetailMapper.crvToEntity(orderDetailDTO)));
+        System.out.println(this.orderDetailMapper.crvToEntity(orderDetailDTO));
+        OrderDetail orderDetail = this.orderDetailRepo.save(this.orderDetailMapper.crvToEntity(orderDetailDTO));
+        return this.orderDetailMapper.crvToDTO(orderDetail);
     }
 
     @Override
