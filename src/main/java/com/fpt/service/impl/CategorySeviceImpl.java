@@ -6,6 +6,9 @@ import com.fpt.mapper.CategoryMapper;
 import com.fpt.repo.CategoryRepo;
 import com.fpt.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -25,6 +28,11 @@ public class CategorySeviceImpl implements CategoryService{
 		return this.categoryRepo.findAll().stream()
 				.map(entity -> this.categoryMapper.cvToDTO(entity))
 				.collect(Collectors.toList());
+	}
+
+	@Override
+	public Page<Category> findAllByPage(Integer number, Integer size) {
+		return categoryRepo.findAll(PageRequest.of(number,size));
 	}
 
 	@Override

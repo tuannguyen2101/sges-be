@@ -1,22 +1,27 @@
 package com.fpt.service;
 
 import com.fpt.dto.CategoryDTO;
+import com.fpt.entity.Category;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public interface CategoryService {
-	
-	public List<CategoryDTO> findAll();
-	
-	public CategoryDTO findById(Integer id);
-	
-	public CategoryDTO create(CategoryDTO dto);
-	
-	public CategoryDTO update(CategoryDTO dto);
-	
-	public CategoryDTO delete(CategoryDTO dto);
-	
-	public boolean isExist(CategoryDTO dto);
+
+    Page<Category> findAllByPage(Integer number, Integer size);
+
+    List<CategoryDTO> findAll();
+
+    CategoryDTO findById(Integer id);
+
+    CategoryDTO create(CategoryDTO dto);
+
+    CategoryDTO update(CategoryDTO dto);
+
+    CategoryDTO delete(CategoryDTO dto);
+
+    boolean isExist(CategoryDTO dto);
 }
