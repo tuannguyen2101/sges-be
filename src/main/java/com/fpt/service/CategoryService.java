@@ -21,7 +21,7 @@ public interface CategoryService {
 
     CategoryDTO update(CategoryDTO dto);
 
-    CategoryDTO delete(CategoryDTO dto);
+    CategoryDTO delete(Integer id);
 
     boolean isExist(CategoryDTO dto);
 }
