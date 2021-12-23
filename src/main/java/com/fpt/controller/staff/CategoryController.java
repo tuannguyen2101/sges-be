@@ -50,8 +50,10 @@ public class CategoryController {
 
     @PutMapping("")
     public ResponseEntity<CategoryDTO> update(@RequestBody CategoryDTO dto) {
-        if (this.categoryService.findById(dto.getId()) == null) {
-            return new ResponseEntity<CategoryDTO>(HttpStatus.NOT_FOUND);
+        if (dto.getId() != null) {
+            if (this.categoryService.findById(dto.getId()) == null) {
+                return new ResponseEntity<CategoryDTO>(HttpStatus.NOT_FOUND);
+            }
         }
         return new ResponseEntity<CategoryDTO>(this.categoryService.update(dto), HttpStatus.OK);
     }
@@ -63,7 +65,7 @@ public class CategoryController {
         if (dto == null) {
             return new ResponseEntity<CategoryDTO>(HttpStatus.NOT_FOUND);
         }
-        return new ResponseEntity<CategoryDTO>(this.categoryService.delete(dto), HttpStatus.OK);
+        return new ResponseEntity<CategoryDTO>(this.categoryService.delete(id), HttpStatus.OK);
     }
 
 }
