@@ -36,7 +36,7 @@ public class OAuth2AuthenticationSuccessHandler extends SimpleUrlAuthenticationS
         OAuth2User oAuth2User = (OAuth2User) authentication.getPrincipal();
 //        String email = (String) oAuth2User.getAttributes().get("email");
 //        String token = jwtHelper.createToken(email, "USER");
-        Account account = accountRepo.findByEmailAndProvider((String) oAuth2User.getAttributes().get("email"), AuthProvider.GOOGLE);
+        Account account = accountRepo.findByEmail((String) oAuth2User.getAttributes().get("email"));
         String token = jwtHelper.createToken(account.getUsername(),"USER");
         String uri = UriComponentsBuilder.fromUriString("http://localhost:3000/oauth2/redirect")
                 .queryParam("token", token)

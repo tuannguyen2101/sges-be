@@ -92,7 +92,6 @@ public class AccountServiceImpl implements AccountService{
 		account.setEmail(oAuth2UserInfo.getEmail());
 		account.setFullname(oAuth2UserInfo.getName());
 		account.setPhoto(oAuth2UserInfo.getImageUrl());
-		account.setProvider(AuthProvider.valueOf(provider.toUpperCase()));
 		String username = oAuth2UserInfo.getEmail();
 		String[] username1 = username.split("@");
 		String username2= username1[0];
@@ -106,7 +105,6 @@ public class AccountServiceImpl implements AccountService{
 	public Account updateOauth2User(Account account, String provider, OAuth2UserInfo oAuth2UserInfo) {
 		account.setFullname(oAuth2UserInfo.getName());
 		account.setPhoto(oAuth2UserInfo.getImageUrl());
-		account.setProvider(AuthProvider.valueOf(provider.toUpperCase()));
 		String username = oAuth2UserInfo.getEmail();
 		String[] username1 = username.split("@");
 		String username2= username1[0];

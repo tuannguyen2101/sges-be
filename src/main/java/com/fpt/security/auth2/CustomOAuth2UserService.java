@@ -23,8 +23,7 @@ public class CustomOAuth2UserService extends DefaultOAuth2UserService {
         String provider = userRequest.getClientRegistration().getRegistrationId();
         OAuth2User oAuth2User = super.loadUser(userRequest);
         OAuth2UserInfo oAuth2UserInfo = OAuth2UserFactory.getOAuth2UserInfo(provider, oAuth2User.getAttributes());
-//        Account account = accountRepo.findByEmail(oAuth2UserInfo.getEmail());
-        Account account = accountRepo.findByEmailAndProvider(oAuth2UserInfo.getEmail(),AuthProvider.GOOGLE);
+        Account account = accountRepo.findByEmail(oAuth2UserInfo.getEmail());
 
         if (account == null) {
             account = accountService.registerOauth2User(provider, oAuth2UserInfo);

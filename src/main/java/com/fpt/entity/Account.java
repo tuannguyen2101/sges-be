@@ -38,8 +38,6 @@ public class Account implements Serializable{
 	@Column(name="status")
 	private Integer status;
 
-	@Enumerated(EnumType.STRING)
-	private AuthProvider provider;
 
 	@JsonIgnore
 	@OneToMany(mappedBy = "account", fetch = FetchType.EAGER)

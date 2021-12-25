@@ -79,7 +79,6 @@ public class LoginController {
 				signup.getPhoto(),
 				signup.getStatus()
 				);
-		account.setProvider(AuthProvider.LOCAL);
 		accountRepo.save(account);
 		return new ResponseEntity<>("Account registered successfully!",HttpStatus.OK);
 	}
