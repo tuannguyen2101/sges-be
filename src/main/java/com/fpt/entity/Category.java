@@ -31,5 +31,9 @@ public class Category implements Serializable{
 	@JsonIgnore
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
 	private List<Product> products = new ArrayList<Product>();
+
+	@ManyToOne
+	@JoinColumn(name = "sup_category_id")
+	private SupCategory supCategory;
 	
 }

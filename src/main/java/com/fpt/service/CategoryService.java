@@ -24,4 +24,6 @@ public interface CategoryService {
     CategoryDTO delete(Integer id);
 
     boolean isExist(CategoryDTO dto);
+
+    List<Category> findBySupCategoryId(Integer id);
 }

@@ -15,11 +15,13 @@ public class ProductDTO {
 
 	private Integer id;
 	private String name;
+	private String description;
 	private String image;
 	private Double price;
+	private Double sale;
+	private Integer sold;
 	private Date createDate;
 	private Integer status;
-	private Integer sale;
 	private Integer categoryId;
 	private List<ProductDetail> productDetails;
 

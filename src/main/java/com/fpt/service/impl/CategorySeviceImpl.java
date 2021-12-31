@@ -36,6 +36,11 @@ public class CategorySeviceImpl implements CategoryService {
     }
 
     @Override
+    public List<Category> findBySupCategoryId(Integer id) {
+        return categoryRepo.findAllBySupCategoryId(id);
+    }
+
+    @Override
     public CategoryDTO findById(Integer id) {
         try {
             return this.categoryMapper.cvToDTO(this.categoryRepo.findById(id).get());
