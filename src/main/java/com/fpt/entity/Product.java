@@ -12,38 +12,44 @@ import java.util.List;
 
 @SuppressWarnings("serial")
 @Entity
-@Table(name="products")
+@Table(name = "products")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Product implements Serializable{
+public class Product implements Serializable {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Integer id;
-	
-	@Column(name="name")
-	private String name;
-	
-	@Column(name="image")
-	private String image;
-	
-	@Column(name="price")
-	private Double price;
-	
-	@Column(name="create_date")
-	private Date createDate;
-	
-	@Column(name="status")
-	private Integer status;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
 
-	@Column(name = "sale")
-	private Integer sale;
-	
-	@ManyToOne
-	@JoinColumn(name="category_id")
-	private Category category;
+    @Column(name = "name")
+    private String name;
 
-	@OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
-	private List<ProductDetail> productDetails;
+    @Column(name = "description")
+    private String description;
+
+    @Column(name = "image")
+    private String image;
+
+    @Column(name = "price")
+    private Double price;
+
+    @Column(name = "sale")
+    private Double sale;
+
+    @Column(name = "sold")
+    private Integer sold;
+
+    @Column(name = "create_date")
+    private Date createDate;
+
+    @Column(name = "status")
+    private Integer status;
+
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.EAGER)
+    private List<ProductDetail> productDetails;
 }
