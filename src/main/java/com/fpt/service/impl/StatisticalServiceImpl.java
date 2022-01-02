@@ -31,4 +31,24 @@ public class StatisticalServiceImpl implements StatisticalService {
     public List<Integer> getAllYears() {
         return productRepo.getAllYears();
     }
+
+    @Override
+    public List<Object> getSalesByWeek() {
+        return productRepo.getSalesByWeek();
+    }
+
+    @Override
+    public List<Object> getSalesByDay() {
+        return productRepo.getSalesByDay();
+    }
+
+    @Override
+    public List<Object> getTopTenProductSold() {
+        return productRepo.getTopTenProductSold();
+    }
+
+    @Override
+    public List<Object> getSalesByCurrentMonth() {
+        return productRepo.getSalesByCurrentMonth();
+    }
 }
