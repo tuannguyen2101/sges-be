@@ -1,6 +1,7 @@
 package com.fpt.service.impl;
 
 import com.fpt.service.FileManagerService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -10,6 +11,7 @@ import java.io.File;
 import java.nio.file.Files;
 
 @Service
+@Slf4j
 public class FileManagerServiceImpl implements FileManagerService{
 	@Autowired
 	private ServletContext app;
@@ -31,8 +33,10 @@ public class FileManagerServiceImpl implements FileManagerService{
 			File file = new File(app.getRealPath("/files/" + name));
 			return Files.readAllBytes(file.toPath());
 		} catch (Exception e) {
-			e.printStackTrace();
-			throw new RuntimeException();
+//			e.printStackTrace();
+//			throw new RuntimeException();
+			log.error("error: " + e);
+			return null;
 		}
 	}
 	
