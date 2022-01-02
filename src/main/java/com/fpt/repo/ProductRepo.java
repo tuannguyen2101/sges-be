@@ -48,6 +48,9 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query("select p from Product p where p.sold = ?1")
     List<Product> findAllBySold(Integer sold);
 
-    @Query(value = "select p from products p order by create_date desc limit 4", nativeQuery = true)
-    List<Product> findByTop();
+    @Query(value = "select * from products order by create_date desc limit 4", nativeQuery = true)
+    List<Product> findProductNewByTop();
+
+    @Query(value = "select * from products order by sold desc limit 8", nativeQuery = true)
+    List<Product> timSanPhamBanChay();
 }

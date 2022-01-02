@@ -70,6 +70,16 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public List<Product> findProductNewByTop() {
+        return productRepo.findProductNewByTop();
+    }
+
+    @Override
+    public List<Product> timSanPhamBanChay() {
+        return productRepo.timSanPhamBanChay();
+    }
+
+    @Override
     public Page<Product> findAllByNotCategoryId(Pageable pageable) {
         return productRepo.findAllByNotCategoryId(pageable);
     }
