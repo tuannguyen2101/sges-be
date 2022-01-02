@@ -42,6 +42,9 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query(value = "select * from products where category_id = :categoryId", nativeQuery = true)
     Page<Product> findAllByCategoryId(@Param("categoryId") Integer categoryId, Pageable pageable);
 
+    @Query(value = "select * from products", nativeQuery = true)
+    Page<Product> findAllByNotCategoryId(Pageable pageable);
+
     @Query("select p from Product p where p.sold = ?1")
     List<Product> findAllBySold(Integer sold);
 

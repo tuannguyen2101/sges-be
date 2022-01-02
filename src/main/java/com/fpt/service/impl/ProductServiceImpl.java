@@ -20,17 +20,17 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
-public class ProductServiceImpl implements ProductService{
+public class ProductServiceImpl implements ProductService {
 
-	@Autowired
-	ProductRepo productRepo;
-	
-	@Autowired
-	ProductMapper productMapper;
-	
-	@Autowired
-	CategoryRepo categoryRepo;
-	
+    @Autowired
+    ProductRepo productRepo;
+
+    @Autowired
+    ProductMapper productMapper;
+
+    @Autowired
+    CategoryRepo categoryRepo;
+
 //	@Override
 //	public List<ProductDTO> findAll() {
 //		return this.productRepo.findAll().stream()
@@ -38,18 +38,18 @@ public class ProductServiceImpl implements ProductService{
 //				.collect(Collectors.toList());
 //	}
 
-	@Override
-	public Page<Product> findAll(Pageable pageable) {
-		return productRepo.findAll(pageable);
-	}
+    @Override
+    public Page<Product> findAll(Pageable pageable) {
+        return productRepo.findAll(pageable);
+    }
 
-	@Override
-	public List<ProductDTO> findByStatus(Integer page, Integer status) {
-		Pageable pageable = PageRequest.of(page, 10);
-		return this.productRepo.findByStatus(status,pageable).stream()
-				.map(e -> this.productMapper.cvToDTO(e))
-				.collect(Collectors.toList());
-	}
+    @Override
+    public List<ProductDTO> findByStatus(Integer page, Integer status) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.productRepo.findByStatus(status, pageable).stream()
+                .map(e -> this.productMapper.cvToDTO(e))
+                .collect(Collectors.toList());
+    }
 
 //	@Override
 //	public List<ProductDTO> findByCategory(Integer id) {
@@ -60,35 +60,46 @@ public class ProductServiceImpl implements ProductService{
 //				.collect(Collectors.toList());
 //	}
 
-	@Override
-	public Page<Product> findByCategoryId(Integer categoryId, Pageable pageable) {
-		Optional<Category> cate = this.categoryRepo.findById(categoryId);
-		if (cate.isPresent()) {
-			return productRepo.findAllByCategoryId(categoryId, pageable);
-		}
-		return null;
-	}
+    @Override
+    public Page<Product> findByCategoryId(Integer categoryId, Pageable pageable) {
+        Optional<Category> cate = this.categoryRepo.findById(categoryId);
+        if (cate.isPresent()) {
+            return productRepo.findAllByCategoryId(categoryId, pageable);
+        }
+        return null;
+    }
 
-	@Override
-	public ProductDTO findById(Integer id) {
-		return this.productMapper.cvToDTO(this.productRepo.findById(id).get());
-	}
+    @Override
+    public Page<Product> findAllByNotCategoryId(Pageable pageable) {
+        return productRepo.findAllByNotCategoryId(pageable);
+    }
 
-	@Override
-	public ProductDTO create(ProductDTO dto) {
-		return this.productMapper.cvToDTO(this.productRepo.save(this.productMapper.cvToEntity(dto)));
-	}
+    @Override
+    public ProductDTO findById(Integer id) {
+        return this.productMapper.cvToDTO(this.productRepo.findById(id).get());
+    }
 
-	@Override
-	public ProductDTO update(ProductDTO dto) {
-		return this.productMapper.cvToDTO(this.productRepo.save(this.productMapper.cvToEntity(dto)));
-	}
+    @Override
+    public Product findProductById(Integer id) {
+        Optional<Product> product = productRepo.findById(id);
+        return product.orElse(null);
+    }
 
-	@Override
-	public ProductDTO delete(ProductDTO dto) {
-		this.productRepo.delete(this.productMapper.cvToEntity(dto));
-		return dto;
-	}
+    @Override
+    public ProductDTO create(ProductDTO dto) {
+        return this.productMapper.cvToDTO(this.productRepo.save(this.productMapper.cvToEntity(dto)));
+    }
+
+    @Override
+    public ProductDTO update(ProductDTO dto) {
+        return this.productMapper.cvToDTO(this.productRepo.save(this.productMapper.cvToEntity(dto)));
+    }
+
+    @Override
+    public ProductDTO delete(ProductDTO dto) {
+        this.productRepo.delete(this.productMapper.cvToEntity(dto));
+        return dto;
+    }
 
 //	@Override
 //	public List<ProductDTO> findAllByPaginate(Integer page) {
@@ -98,5 +109,5 @@ public class ProductServiceImpl implements ProductService{
 //				.map(e -> this.productMapper.cvToDTO(e))
 //				.collect(Collectors.toList());
 //	}
-	
+
 }

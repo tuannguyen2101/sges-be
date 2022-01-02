@@ -30,27 +30,20 @@ public class ProdController {
     @Autowired
     CategoryService categoryService;
 
-//	@GetMapping("")
-//	public ResponseEntity<List<ProductDTO>> findAll () {
-//		List<ProductDTO> products = this.productService.findAll();
-//		if(products.isEmpty()) {
-//			return new ResponseEntity<List<ProductDTO>>(HttpStatus.NO_CONTENT);
-//		}
-//		return new ResponseEntity<List<ProductDTO>>(products, HttpStatus.OK);
-//	}
-
     @GetMapping("")
-    public ResponseEntity<Page<Product>> findAll(@RequestParam("cId") Optional<Integer> cId, @RequestParam("n") Optional<Integer> n, @RequestParam("s") Optional<Integer> s, @RequestParam("p") Optional<String> p, @RequestParam("d") Optional<Integer> d) {
+    public ResponseEntity<Page<Product>> findAll(@RequestParam("cId") Optional<Integer> cId, @RequestParam("n") Optional<Integer> n, @RequestParam("s") Optional<Integer> s, @RequestParam("p") String p, @RequestParam("d") Optional<Integer> d) {
 
         Integer cateId = cId.orElse(null);
 
         int number = n.orElse(0);
         int size = s.orElse(10);
-        String prop = p.orElse("name");
-        int direction = d.orElse(0);
+        String prop = p.equals("") ? "create_date" : p;
+        int direction = d.orElse(1);
 
         Pageable pageable = null;
         Page<Product> products = null;
+
+        log.info(cateId + " " + number + " " + size + " " + prop + " " + direction);
 
         if (direction == 0) {
             pageable = PageRequest.of(number, size, Sort.by(Sort.Direction.ASC, prop));
@@ -61,7 +54,7 @@ public class ProdController {
             if (cateId != null) {
                 products = productService.findByCategoryId(cateId, pageable);
             } else {
-                products = productService.findAll(pageable);
+                products = productService.findAllByNotCategoryId(pageable);
             }
             if (products.getTotalElements() > 0) {
                 return new ResponseEntity<Page<Product>>(products, HttpStatus.OK);
@@ -73,13 +66,17 @@ public class ProdController {
         }
     }
 
-//    @GetMapping("/{id}")
-//    public ResponseEntity<ProductDTO> findById(@PathVariable Integer id) {
-//        ProductDTO dto = this.productService.findById(id);
-//        if (dto == null) {
-//            return new ResponseEntity<ProductDTO>(HttpStatus.NOT_FOUND);
-//        }
-//        return new ResponseEntity<ProductDTO>(dto, HttpStatus.OK);
-//    }
+    @GetMapping("/{id}")
+    public ResponseEntity<Product> findById(@PathVariable Integer id) {
+        if (id != null) {
+            try {
+                Product product = productService.findProductById(id);
+                return new ResponseEntity<Product>(product, HttpStatus.OK);
+            } catch (Exception e) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+    }
 
 }
