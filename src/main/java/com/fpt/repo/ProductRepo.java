@@ -26,12 +26,12 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     public List<Object> getAllNameAndQuantity();
 
     // Thống kê doang thu theo năm
-    @Query(value = "select distinct year(a.create_date) as years, sum(b.price*b.quantity) from orders a inner join order_details b " +
+    @Query(value = "select distinct year(a.create_date) as years, sum(b.price) from orders a inner join order_details b " +
             "on a.id = b.order_id group by year(a.create_date) order by years ASC", nativeQuery = true)
     public List<Object> getTotalSalaryByYear();
 
     // Thống kê doanh thu theo tháng trong năm
-    @Query(value = "select distinct month(a.create_date) as months ,year(a.create_date) as years, sum(b.price*b.quantity) from orders a inner join order_details b " +
+    @Query(value = "select distinct month(a.create_date) as months ,year(a.create_date) as years, sum(b.price) from orders a inner join order_details b " +
             "on a.id = b.order_id group by months, years having years= ?1 order by months ASC", nativeQuery = true)
     public List<Object> getTotalSalaryByMonth(Integer year);
 
@@ -55,12 +55,12 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     List<Product> timSanPhamBanChay();
 
     // Thống kê doanh thu trong tuần hiện tại
-    @Query(value = "select distinct week(a.create_date) as saleweek, sum(b.price*b.quantity) as tong " +
+    @Query(value = "select distinct week(a.create_date) as saleweek, sum(b.price) as tong " +
             "from j6shop.orders a inner join j6shop.order_details b on a.id = b.order_id where year(a.create_date)=year(curdate()) group by saleweek order by saleweek desc limit 2",nativeQuery = true)
     public List<Object> getSalesByWeek();
 
     // Thống kê doanh thu trong ngày hiện tại
-    @Query(value = "select distinct date(a.create_date) as saledate, sum(b.price*b.quantity) as tong from j6shop.orders a inner join j6shop.order_details b on a.id = b.order_id \n" +
+    @Query(value = "select distinct date(a.create_date) as saledate, sum(b.price) as tong from j6shop.orders a inner join j6shop.order_details b on a.id = b.order_id \n" +
             "group by saledate\n" +
             "order by saledate desc limit 2", nativeQuery = true)
     public List<Object> getSalesByDay();
@@ -72,7 +72,7 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     public List<Object> getTopTenProductSold();
 
     //Thống kê doanh thu tháng hiện tại
-    @Query(value = "select distinct month(a.create_date) as months, sum(b.price*b.quantity) as tong from j6shop.orders a inner join j6shop.order_details b on a.id = b.order_id \n" +
+    @Query(value = "select distinct month(a.create_date) as months, sum(b.price) as tong from j6shop.orders a inner join j6shop.order_details b on a.id = b.order_id \n" +
             "where year(a.create_date) = year(curdate()) group by months order by months desc limit 2",nativeQuery = true)
     public List<Object> getSalesByCurrentMonth();
 }
