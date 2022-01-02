@@ -15,6 +15,8 @@ public interface ProductService {
 
     Page<Product> findAll(Pageable pageable);
 
+    Page<Product> findAllByNotCategoryId(Pageable pageable);
+
     List<ProductDTO> findByStatus(Integer page, Integer status);
 
 //    List<ProductDTO> findAllByPaginate(Integer page);
@@ -23,6 +25,8 @@ public interface ProductService {
     Page<Product> findByCategoryId(Integer categoryId, Pageable pageable);
 
     ProductDTO findById(Integer id);
+
+    Product findProductById(Integer id);
 
     ProductDTO create(ProductDTO dto);
 
