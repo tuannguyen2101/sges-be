@@ -16,6 +16,6 @@ public class CategoryDTO {
     private String name;
     private Integer status;
     private Integer supCategoryId;
-    private List<Product> products;
+//    private List<Product> products;
 
 }

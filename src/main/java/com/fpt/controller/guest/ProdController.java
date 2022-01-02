@@ -79,4 +79,26 @@ public class ProdController {
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
+    @GetMapping("/new")
+    public ResponseEntity<List<Product>> findProductNewByTop() {
+        try {
+            List<Product> products = productService.findProductNewByTop();
+            return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("error " + e);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
+    @GetMapping("/banchay")
+    public ResponseEntity<List<Product>> timSanPhamBanChay() {
+        try {
+            List<Product> products = productService.timSanPhamBanChay();
+            return new ResponseEntity<List<Product>>(products, HttpStatus.OK);
+        } catch (Exception e) {
+            log.error("error " + e);
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
+
 }

@@ -24,6 +24,15 @@ public class CategoryController {
     @Autowired
     CategoryService categoryService;
 
+    @GetMapping("/all")
+    public ResponseEntity<List<CategoryDTO>> findAllC() {
+        List<CategoryDTO> categories = this.categoryService.findAll();
+        if (categories.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+        return new ResponseEntity<>(categories, HttpStatus.OK);
+    }
+
     @GetMapping("")
     public ResponseEntity<Page<Category>> findAll(@RequestParam("n") Optional<Integer> n, @RequestParam("s") Optional<Integer> s) {
         Page<Category> catetegories = categoryService.findAllByPage(n.orElse(0), s.orElse(10));
