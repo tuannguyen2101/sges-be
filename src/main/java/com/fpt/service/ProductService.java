@@ -28,6 +28,10 @@ public interface ProductService {
 
     Product findProductById(Integer id);
 
+    List<Product> findProductNewByTop();
+
+    List<Product> timSanPhamBanChay();
+
     ProductDTO create(ProductDTO dto);
 
     ProductDTO update(ProductDTO dto);
