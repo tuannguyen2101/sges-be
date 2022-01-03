@@ -13,12 +13,8 @@ k
 ;src/main/java/com/fpt/controller/staff/OrderController.java,e\d\ed4667d53a2cddcf612f18bacd9da6ff0b4bd808
 j
 :src/main/java/com/fpt/controller/guest/TestController.java,5\2\5244bd98209b44e27050615415960f016ef32c86
-j
-:src/main/java/com/fpt/controller/admin/RoleController.java,2\9\29062376c3e7d42fddc55dfc89ee05025c010159
 X
 (src/main/java/com/fpt/repo/RoleRepo.java,f\5\f5b2ed9c7c6bde29428bfa0e893c191284568d3c
-[
-+src/main/java/com/fpt/repo/ProductRepo.java,6\f\6f4372229475921df400c6ae19cdd0fafddcd0d3
 Y
 )src/main/java/com/fpt/repo/OrderRepo.java,8\2\828e7ad33eba74e5587337e6f832b54b370d27f2
 V
@@ -43,8 +39,6 @@ _
 /src/main/java/com/fpt/mapper/AccountMapper.java,d\e\de351b31c0781e15a35508bc7348fdc92ab69aa3
 _
 /src/main/java/com/fpt/mapper/ProductMapper.java,3\f\3fa9572552c1186ca834b77a2abab0ca193d61e3
-j
-:src/main/java/com/fpt/service/impl/ProductServiceImpl.java,8\4\848de626518b2f207e54353ab3c4132aff571bba
 m
 =src/main/java/com/fpt/controller/staff/ProductController.java,0\f\0f4f4e951dc7ab3a68593114f5754fc23fdcbe46
 V

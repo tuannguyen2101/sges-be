@@ -10,4 +10,16 @@ public interface StatisticalService {
     public List<Object> getTotalSalaryByMonthInYear(Integer year);
 
     public List<Integer> getAllYears();
+
+    // Thống kê doanh thu trong tuần hiện tại
+    public List<Object> getSalesByWeek();
+
+    // Thống kê doanh thu trong ngày hiện tại
+    public List<Object> getSalesByDay();
+
+    //Thống kê top 10 sản phẩm bán chạy
+    public List<Object> getTopTenProductSold();
+
+    //Thống kê doanh thu tháng hiện tại
+    public List<Object> getSalesByCurrentMonth();
 }
