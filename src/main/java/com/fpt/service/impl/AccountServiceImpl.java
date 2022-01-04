@@ -92,24 +92,12 @@ public class AccountServiceImpl implements AccountService{
 		account.setEmail(oAuth2UserInfo.getEmail());
 		account.setFullname(oAuth2UserInfo.getName());
 		account.setPhoto(oAuth2UserInfo.getImageUrl());
-		String username = oAuth2UserInfo.getEmail();
-		String[] username1 = username.split("@");
-		String username2= username1[0];
-		account.setUsername(username2);
-//		account.setUsername(oAuth2UserInfo.getEmail());
 		account.setStatus(1);
 		return accountRepo.save(account);
 	}
-
 	@Override
 	public Account updateOauth2User(Account account, String provider, OAuth2UserInfo oAuth2UserInfo) {
-		account.setFullname(oAuth2UserInfo.getName());
-		account.setPhoto(oAuth2UserInfo.getImageUrl());
-		String username = oAuth2UserInfo.getEmail();
-		String[] username1 = username.split("@");
-		String username2= username1[0];
-		account.setUsername(username2);
-//		account.setUsername(oAuth2UserInfo.getEmail());
+		account.setEmail(oAuth2UserInfo.getEmail());
 		return accountRepo.save(account);
 	}
 }
