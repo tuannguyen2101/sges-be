@@ -12,15 +12,15 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderDetailDTO extends OrderDetail implements Serializable {
+public class OrderDetailDTO {
 
     private Integer id;
 
     private Integer orderId;
 
-    private Integer productId;
-
     private Double price;
+
+    private Integer productId;
 
     private String size;
 
