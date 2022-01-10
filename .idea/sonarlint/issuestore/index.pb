@@ -9,8 +9,6 @@ i
 9src/main/java/com/fpt/configure/ModelMapperConfigure.java,b\0\b098a2ff9bd7c9accbce1ac6c1b80031e83d0702
 n
 >src/main/java/com/fpt/controller/staff/CategoryController.java,c\9\c9f0943e8d1193319234bde60e09b4b96f7e22f9
-k
-;src/main/java/com/fpt/controller/staff/OrderController.java,e\d\ed4667d53a2cddcf612f18bacd9da6ff0b4bd808
 j
 :src/main/java/com/fpt/controller/guest/TestController.java,5\2\5244bd98209b44e27050615415960f016ef32c86
 X
@@ -39,8 +37,6 @@ _
 /src/main/java/com/fpt/mapper/AccountMapper.java,d\e\de351b31c0781e15a35508bc7348fdc92ab69aa3
 _
 /src/main/java/com/fpt/mapper/ProductMapper.java,3\f\3fa9572552c1186ca834b77a2abab0ca193d61e3
-m
-=src/main/java/com/fpt/controller/staff/ProductController.java,0\f\0f4f4e951dc7ab3a68593114f5754fc23fdcbe46
 V
 &src/main/java/com/fpt/entity/Role.java,4\d\4d60f18f6129e27cf95aeb773c32d9b3ad3eebf5
 Y
