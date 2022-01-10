@@ -32,6 +32,8 @@ public interface ProductService {
 
     List<Product> timSanPhamBanChay();
 
+    Page<Product> findByProductName(String name, Pageable pageable);
+
     ProductDTO create(ProductDTO dto);
 
     ProductDTO update(ProductDTO dto);

@@ -80,6 +80,11 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
+    public Page<Product> findByProductName(String name, Pageable pageable) {
+        return productRepo.findByProductName(name, pageable);
+    }
+
+    @Override
     public Page<Product> findAllByNotCategoryId(Pageable pageable) {
         return productRepo.findAllByNotCategoryId(pageable);
     }

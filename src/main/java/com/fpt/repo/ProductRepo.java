@@ -54,6 +54,9 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query(value = "select * from products order by sold desc limit 8", nativeQuery = true)
     List<Product> timSanPhamBanChay();
 
+    @Query(value = "select * from products where name like %:name%", nativeQuery = true)
+    Page<Product> findByProductName(@Param("name") String name, Pageable pageable);
+
     // Thống kê doanh thu trong tuần hiện tại
     @Query(value = "select distinct week(a.create_date) as saleweek, sum(b.price) as tong " +
             "from j6shop.orders a inner join j6shop.order_details b on a.id = b.order_id where year(a.create_date)=year(curdate()) group by saleweek order by saleweek desc limit 2",nativeQuery = true)

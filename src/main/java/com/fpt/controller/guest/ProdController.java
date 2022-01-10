@@ -31,10 +31,9 @@ public class ProdController {
     CategoryService categoryService;
 
     @GetMapping("")
-    public ResponseEntity<Page<Product>> findAll(@RequestParam("cId") Optional<Integer> cId, @RequestParam("n") Optional<Integer> n, @RequestParam("s") Optional<Integer> s, @RequestParam("p") String p, @RequestParam("d") Optional<Integer> d) {
+    public ResponseEntity<Page<Product>> findAll(@RequestParam("cId") Optional<Integer> cId, @RequestParam("name") String name, @RequestParam("n") Optional<Integer> n, @RequestParam("s") Optional<Integer> s, @RequestParam("p") String p, @RequestParam("d") Optional<Integer> d) {
 
         Integer cateId = cId.orElse(null);
-
         int number = n.orElse(0);
         int size = s.orElse(10);
         String prop = p.equals("") ? "create_date" : p;
@@ -43,7 +42,7 @@ public class ProdController {
         Pageable pageable = null;
         Page<Product> products = null;
 
-        log.info(cateId + " " + number + " " + size + " " + prop + " " + direction);
+        log.info(cateId + " " + name + " " + number + " " + size + " " + prop + " " + direction);
 
         if (direction == 0) {
             pageable = PageRequest.of(number, size, Sort.by(Sort.Direction.ASC, prop));
@@ -54,7 +53,11 @@ public class ProdController {
             if (cateId != null) {
                 products = productService.findByCategoryId(cateId, pageable);
             } else {
-                products = productService.findAllByNotCategoryId(pageable);
+                if (!name.equals("") && !(name.length() == 0)) {
+                    products = productService.findByProductName(name, pageable);
+                } else {
+                    products = productService.findAllByNotCategoryId(pageable);
+                }
             }
             if (products.getTotalElements() > 0) {
                 return new ResponseEntity<Page<Product>>(products, HttpStatus.OK);
