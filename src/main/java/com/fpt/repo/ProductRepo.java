@@ -21,8 +21,10 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query("SELECT entity FROM Product entity WHERE status=:status")
     public List<Product> findByStatus(@Param("status") Integer status, Pageable pageable);
 
-    // Thống kê số sản phẩm theo tên
-    @Query("select distinct a.name, sum(b.qty) from Product a inner join ProductDetail b on a.id =b.product.id group by a.name")
+    // Thống kê top 5 sản phẩm bán chạy nhất
+    @Query(value = "select b.name, sum(quantity) from j6shop.order_details a \n" +
+            "inner join j6shop.products b on a.product_id = b.id\n" +
+            "group by b.name limit 5", nativeQuery = true)
     public List<Object> getAllNameAndQuantity();
 
     // Thống kê doang thu theo năm
