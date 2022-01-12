@@ -8,6 +8,8 @@ import com.fpt.repo.AccountRepo;
 import com.fpt.repo.OrderRepo;
 import com.fpt.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -80,5 +82,23 @@ public class OrderServiceImpl implements OrderService {
                     .collect(Collectors.toList());
         }
         else return null;
+    }
+
+    @Override
+    public Page<Order> findAllByAccountAndStatus(Integer userId, Integer status, Pageable pageable) {
+        Optional<Account> account = accountRepo.findById(userId);
+        if (account.isPresent()) {
+            return orderRepo.findAllByAccountAndStatus(userId,status,pageable);
+        }
+        return null;
+    }
+
+    @Override
+    public Page<Order> findAllByAccount(Integer userId, Pageable pageable) {
+        Optional<Account> account = accountRepo.findById(userId);
+        if (account.isPresent()) {
+            return orderRepo.findAllByAccount(userId,pageable);
+        }
+        return null;
     }
 }

@@ -1,8 +1,13 @@
 package com.fpt.controller.guest;
 
 import com.fpt.dto.OrderDTO;
+import com.fpt.entity.Order;
 import com.fpt.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,43 +23,55 @@ public class OrdController {
     OrderService orderService;
 
     @GetMapping("")
-    public ResponseEntity<List<OrderDTO>> findByAccount (@RequestParam("username") String username) {
+    public ResponseEntity<List<OrderDTO>> findByAccount(@RequestParam("username") String username) {
         List<OrderDTO> list = this.orderService.findByAccount(username);
-        if(!list.isEmpty()) {
+        if (!list.isEmpty()) {
             return new ResponseEntity<List<OrderDTO>>(list, HttpStatus.OK);
+        } else return new ResponseEntity<List<OrderDTO>>(HttpStatus.NO_CONTENT);
+    }
+
+    @GetMapping("/page")
+    public ResponseEntity<Page<Order>> findAllByAccountAndStatus(@RequestParam("userId") Integer userId, @RequestParam("status") Integer status, @RequestParam("n") Integer n, @RequestParam("s") Integer s) {
+        Pageable pageable = PageRequest.of(n, s, Sort.by(Sort.Direction.DESC, "create_date"));
+        try {
+            Page<Order> orders = null;
+            if (status == 9) {
+                orders = orderService.findAllByAccount(userId, pageable);
+            } else {
+                orders = orderService.findAllByAccountAndStatus(userId, status, pageable);
+            }
+            return new ResponseEntity<>(orders, HttpStatus.OK);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         }
-        else return new ResponseEntity<List<OrderDTO>>(HttpStatus.NO_CONTENT);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<OrderDTO> findById(@PathVariable("id") Integer id) {
         OrderDTO dto = this.orderService.findById(id);
-        if(dto == null) {
+        if (dto == null) {
             return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
-        }
-        else return new ResponseEntity<OrderDTO>(dto, HttpStatus.OK);
+        } else return new ResponseEntity<OrderDTO>(dto, HttpStatus.OK);
     }
 
     @PostMapping("")
-    public  ResponseEntity<OrderDTO> create(@RequestBody OrderDTO dto) {
+    public ResponseEntity<OrderDTO> create(@RequestBody OrderDTO dto) {
         return new ResponseEntity<OrderDTO>(this.orderService.create(dto), HttpStatus.OK);
     }
 
     @PutMapping("")
-    public  ResponseEntity<OrderDTO> update(@RequestBody OrderDTO dto) {
+    public ResponseEntity<OrderDTO> update(@RequestBody OrderDTO dto) {
         OrderDTO orderDTO = this.orderService.update(dto);
-        if(orderDTO == null) {
+        if (orderDTO == null) {
             return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
-        }
-        else return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.OK);
+        } else return new ResponseEntity<OrderDTO>(orderDTO, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
-    public  ResponseEntity<OrderDTO> delete(@PathVariable("id") Integer id) {
+    public ResponseEntity<OrderDTO> delete(@PathVariable("id") Integer id) {
         OrderDTO dto = this.orderService.delete(id);
-        if(dto == null) {
+        if (dto == null) {
             return new ResponseEntity<OrderDTO>(HttpStatus.NOT_FOUND);
-        }
-        else return new ResponseEntity<OrderDTO>(dto, HttpStatus.OK);
+        } else return new ResponseEntity<OrderDTO>(dto, HttpStatus.OK);
     }
 }

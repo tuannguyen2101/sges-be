@@ -55,4 +55,13 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         return null;
     }
 
+    @Override
+    public List<OrderDetail> findAllByOrderId(Integer id) {
+        if (orderRepo.findById(id).isPresent()) {
+            return orderDetailRepo.findAllByOrderId(id);
+        }
+        return null;
+    }
+
+
 }
