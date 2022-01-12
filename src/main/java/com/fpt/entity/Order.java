@@ -40,6 +40,19 @@ public class Order implements Serializable {
     @Column(name = "phone")
     private String phone;
 
+    @Column(name= "transport_fee")
+    private Double transportFee;
+
+    @Column(name= "tien_hang")
+    private Double tienHang;
+
+    @Column(name= "tong_thanh_toan")
+    private Double tongThanhToan;
+
     @Column(name = "status")
     private Integer status;
+
+    @Column(name = "payment")
+    private Integer payment;
+    
 }

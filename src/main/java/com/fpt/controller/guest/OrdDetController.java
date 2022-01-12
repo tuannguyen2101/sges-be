@@ -44,4 +44,14 @@ public class OrdDetController {
         Optional<OrderDetailDTO> orderDetailDTO = Optional.ofNullable(this.orderDetailService.findByOrderId(id));
         return new ResponseEntity<OrderDetailDTO>(orderDetailDTO.get(),HttpStatus.OK);
     }
+
+    @GetMapping("/guest/listorderdetail")
+    public  ResponseEntity<List<OrderDetail>> findAllByOrderId(@RequestParam("oId") Integer oId) {
+        try {
+            List<OrderDetail> orderDetails = orderDetailService.findAllByOrderId(oId);
+            return new ResponseEntity<>(orderDetails, HttpStatus.OK);
+        }catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        }
+    }
 }

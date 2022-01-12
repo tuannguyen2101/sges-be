@@ -7,6 +7,7 @@ import com.fpt.mapper.OrderDetailMapper;
 import com.fpt.repo.OrderDetailRepo;
 import com.fpt.repo.OrderRepo;
 import com.fpt.service.OrderDetailService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
+@Slf4j
 public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Autowired
@@ -39,7 +41,7 @@ public class OrderDetailServiceImpl implements OrderDetailService {
 
     @Override
     public OrderDetailDTO create(OrderDetailDTO orderDetailDTO) {
-        System.out.println(this.orderDetailMapper.crvToEntity(orderDetailDTO));
+        log.info("result: " + this.orderDetailMapper.crvToEntity(orderDetailDTO));
         OrderDetail orderDetail = this.orderDetailRepo.save(this.orderDetailMapper.crvToEntity(orderDetailDTO));
         return this.orderDetailMapper.crvToDTO(orderDetail);
     }
@@ -52,5 +54,14 @@ public class OrderDetailServiceImpl implements OrderDetailService {
         }
         return null;
     }
+
+    @Override
+    public List<OrderDetail> findAllByOrderId(Integer id) {
+        if (orderRepo.findById(id).isPresent()) {
+            return orderDetailRepo.findAllByOrderId(id);
+        }
+        return null;
+    }
+
 
 }

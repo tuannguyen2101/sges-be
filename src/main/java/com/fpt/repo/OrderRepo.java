@@ -2,6 +2,8 @@ package com.fpt.repo;
 
 import com.fpt.entity.Account;
 import com.fpt.entity.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,5 +16,11 @@ public interface OrderRepo extends JpaRepository<Order, Integer> {
 
     @Query("SELECT order FROM Order order WHERE order.account =:account and status != 3")
     public List<Order> findByAccount(@Param("account") Account account);
+
+    @Query(value = "SELECT * FROM orders WHERE user_id = :userId and status = :status", nativeQuery = true)
+    Page<Order> findAllByAccountAndStatus(Integer userId, Integer status, Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders WHERE user_id = :userId", nativeQuery = true)
+    Page<Order> findAllByAccount(Integer userId, Pageable pageable);
 
 }
