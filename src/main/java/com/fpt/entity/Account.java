@@ -50,13 +50,14 @@ public class Account implements Serializable{
 	public Account() {
 	}
 
-	public Account(String username, String password, String fullname, String email, String photo, Integer status) {
+	public Account(String username, String password, String fullname, String email, String photo) {
 		this.username = username;
 		this.password = password;
 		this.fullname = fullname;
 		this.email = email;
 		this.photo = photo;
-		this.status = status;
+
 	}
+
 
 }

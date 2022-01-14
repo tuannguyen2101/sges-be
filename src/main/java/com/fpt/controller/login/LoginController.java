@@ -1,6 +1,7 @@
 package com.fpt.controller.login;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fpt.configure.AccountActivationConfig;
 import com.fpt.dto.CustomUserDetail;
 import com.fpt.dto.Profile;
 import com.fpt.dto.request.ChangeAvatar;
@@ -9,11 +10,15 @@ import com.fpt.dto.request.ChangeProfile;
 import com.fpt.dto.request.Signup;
 import com.fpt.dto.response.MessageResponse;
 import com.fpt.dto.response.ProfileResponse;
+import com.fpt.email.EmailServiceImpl;
 import com.fpt.entity.Account;
 import com.fpt.entity.AuthProvider;
+import com.fpt.entity.OTP;
 import com.fpt.jwt.JwtHelper;
 import com.fpt.repo.AccountRepo;
 import com.fpt.service.AccountService;
+import com.fpt.vm.FogotPasswordVM;
+import lombok.RequiredArgsConstructor;
 import org.modelmapper.internal.Errors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +40,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
+@RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class LoginController {
 
@@ -43,14 +49,19 @@ public class LoginController {
 
 	@Autowired
 	PasswordEncoder encoder;
+	private final EmailServiceImpl emailService;
 
 	@Autowired
 	private AuthenticationManager authenticationManager;
 
 	@Autowired
 	AccountService accountService;
+
 	@Autowired
 	private AccountRepo accountRepo;
+
+	@Autowired
+	AccountActivationConfig accountActivationConfig;
 
 	@GetMapping("/login")
 	public String login(@RequestParam("username") String username, @RequestParam("password") String password) throws JsonProcessingException {
@@ -61,26 +72,34 @@ public class LoginController {
 	}
 
 	@PostMapping("/signup")
-	public ResponseEntity<String> registerAccount(@Valid @RequestBody Signup signup){
+	public ResponseEntity<Object> registerAccount(@Valid @RequestBody Signup signup){
 		if (accountRepo.existsByUsername(signup.getUsername())){
 			return new ResponseEntity<>("Error: Username is already taken!",HttpStatus.BAD_REQUEST);
 		}
-		if (accountRepo.existsByEmail(signup.getEmail())){
-			return new ResponseEntity<>("Error: Email is already in use!",HttpStatus.BAD_REQUEST);
-		}
+//		if (accountRepo.existsByEmail(signup.getEmail())){
+//			return new ResponseEntity<>("Error: Email is already in use!",HttpStatus.BAD_REQUEST);
+//		}
 		if (signup.getPhoto()==""){
 			signup.setPhoto("https://firebasestorage.googleapis.com/v0/b/chinhbeo-18d3b.appspot.com/o/avatar.png?alt=media&token=3511cf81-8df2-4483-82a8-17becfd03211");
 		}
 
-		Account account = new Account(signup.getUsername(),
+		Account account = new Account( signup.getUsername(),
 				encoder.encode(signup.getPassword()),
 				signup.getFullname(),
 				signup.getEmail(),
-				signup.getPhoto(),
-				signup.getStatus()
-				);
+				signup.getPhoto()
+		);
+
 		accountRepo.save(account);
-		return new ResponseEntity<>("Account registered successfully!",HttpStatus.OK);
+
+		OTP otp = accountService.generateOTP(account);
+
+		String linkActive = accountActivationConfig.getActivateUrl() + account.getId();
+		emailService.sendSimpleMessage(account.getEmail(),
+				"Link active account",
+				"<a href=\" " + linkActive + "\">Click vào đây để kích hoạt tài khoản</a>");
+
+		return new ResponseEntity<>(account, HttpStatus.OK);
 	}
 
 	@GetMapping("/getProfile")
@@ -195,4 +214,23 @@ public class LoginController {
 		return new ResponseEntity<HttpStatus>(HttpStatus.OK);
 	}
 
+	@PutMapping("/fogotpass")
+	public ResponseEntity<Object> fogotPassword(@RequestBody FogotPasswordVM fogotPasswordVM) {
+		return new ResponseEntity<>( accountService.sendFogotPasswordMail(fogotPasswordVM.getEmail()),HttpStatus.OK);
+	}
+
+	@GetMapping("/active/{id}")
+	public ResponseEntity<String> activeAccount(@PathVariable Integer id) {
+		try {
+			Account account = accountService.getUserById(id);
+//			if (account.setStatus()) {
+//				return ResponseEntity.ok().body("Your account is already activated");
+//			}
+			accountService.activeAccount(account);
+			return ResponseEntity.ok().body(
+					"<a href=\"localhost:3000/login\" >Active successfull</a>");
+		} catch (RuntimeException e) {
+			return ResponseEntity.badRequest().body(e.getMessage());
+		}
+	}
 }

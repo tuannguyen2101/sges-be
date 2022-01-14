@@ -20,64 +20,65 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
-@EnableGlobalMethodSecurity(prePostEnabled = true,jsr250Enabled = true)
-public class Authenticate extends WebSecurityConfigurerAdapter{
+@EnableGlobalMethodSecurity(prePostEnabled = true, jsr250Enabled = true)
+public class Authenticate extends WebSecurityConfigurerAdapter {
 
-	@Bean
-	public BCryptPasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
-	
-	@Autowired
-	UserService userService;
+    @Bean
+    public BCryptPasswordEncoder getPasswordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-	@Autowired
-	CustomOAuth2UserService oAuth2UserService;
+    @Autowired
+    UserService userService;
 
-	@Autowired
-	OAuth2AuthenticationSuccessHandler oauthSuccessHandler;
+    @Autowired
+    CustomOAuth2UserService oAuth2UserService;
 
-	@Autowired
-	private JwtTokenFilter jwtTokenFilter;
+    @Autowired
+    OAuth2AuthenticationSuccessHandler oauthSuccessHandler;
 
-	@Autowired
-	private JwtConfigurer jwtConfigurer;
+    @Autowired
+    private JwtTokenFilter jwtTokenFilter;
 
-	@Bean(BeanIds.AUTHENTICATION_MANAGER)
-	@Override
-	public AuthenticationManager authenticationManagerBean() throws Exception {
-		return super.authenticationManagerBean();
-	}
+    @Autowired
+    private JwtConfigurer jwtConfigurer;
+
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
+    }
 
 
-	@Override
-	public void configure(AuthenticationManagerBuilder auth) throws Exception {
-		auth.userDetailsService(this.userService);
-	}
-	
-	@Override
-	public void configure(HttpSecurity http) throws Exception {
-		http
-		.cors().and()
-		.csrf()
-		.disable()
-        .authorizeRequests()
-        .antMatchers("/admin/**").hasRole("ADMIN")
-        .antMatchers("/staff/**").hasAnyRole("STAFF", "ADMIN")
-				.antMatchers("/guest/order/**").authenticated()
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.userDetailsService(this.userService);
+    }
+
+    @Override
+    public void configure(HttpSecurity http) throws Exception {
+        http
+                .cors().and()
+                .csrf()
+                .disable()
+                .authorizeRequests()
+                .antMatchers("/active/**").permitAll()
+                .antMatchers("/admin/**").hasRole("ADMIN")
+                .antMatchers("/staff/**").hasAnyRole("STAFF", "ADMIN")
+                .antMatchers("/guest/order/**").authenticated()
 //				.anyRequest().permitAll();
-        .anyRequest().permitAll()
+                .anyRequest().permitAll()
 
-		// oauth2
-				.and()
-				.oauth2Login()
-				.authorizationEndpoint().baseUri("/oauth2/authorize")
-				.and()
-				.userInfoEndpoint().userService(oAuth2UserService)
-				.and()
-				.successHandler(oauthSuccessHandler)
-				.and()
-				.apply(jwtConfigurer);
-		http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
-	}
+                // oauth2
+                .and()
+                .oauth2Login()
+                .authorizationEndpoint().baseUri("/oauth2/authorize")
+                .and()
+                .userInfoEndpoint().userService(oAuth2UserService)
+                .and()
+                .successHandler(oauthSuccessHandler)
+                .and()
+                .apply(jwtConfigurer);
+        http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
+    }
 }
