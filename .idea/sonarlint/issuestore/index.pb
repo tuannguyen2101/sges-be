@@ -3,8 +3,6 @@
 0src/main/java/com/fpt/mapper/CategoryMapper.java,c\f\cf19ef935caa1bef8a3eb9f9a01d1ee5f0774c1a
 ]
 -src/main/java/com/fpt/mapper/OrderMapper.java,1\2\12e91e253eebd306c4f2fabc1deaba478177337a
-b
-2src/main/java/com/fpt/MexxiBackendApplication.java,4\6\46fe22bdb51c676002055e3ae89134f151d3136a
 i
 9src/main/java/com/fpt/configure/ModelMapperConfigure.java,b\0\b098a2ff9bd7c9accbce1ac6c1b80031e83d0702
 n
@@ -39,11 +37,11 @@ _
 /src/main/java/com/fpt/mapper/ProductMapper.java,3\f\3fa9572552c1186ca834b77a2abab0ca193d61e3
 V
 &src/main/java/com/fpt/entity/Role.java,4\d\4d60f18f6129e27cf95aeb773c32d9b3ad3eebf5
-Y
-)src/main/java/com/fpt/entity/Product.java,6\a\6a3b567807ea7c74340a794cf389af50337a45ec
 Z
 *src/main/java/com/fpt/entity/Category.java,1\6\16358b13c25b10c92de60d057173d3d599818ba8
 m
 =src/main/java/com/fpt/controller/admin/AccountController.java,2\2\22e7663027cb5fe2dbacf7da4dea55a3c60c44b9
 ^
 .src/main/java/com/fpt/service/UserService.java,9\3\930f331f5de55ae7e9b26cd5589c11d894f6bd3c
+k
+;src/main/java/com/fpt/controller/staff/OrderController.java,e\d\ed4667d53a2cddcf612f18bacd9da6ff0b4bd808

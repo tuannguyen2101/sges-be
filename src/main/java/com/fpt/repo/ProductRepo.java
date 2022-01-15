@@ -75,4 +75,11 @@ public interface ProductRepo extends JpaRepository<Product, Integer> {
     @Query(value = "select distinct month(a.create_date) as months, sum(b.price) as tong from j6shop.orders a inner join j6shop.order_details b on a.id = b.order_id \n" +
             "where year(a.create_date) = year(curdate()) group by months order by months desc limit 2",nativeQuery = true)
     public List<Object> getSalesByCurrentMonth();
+
+    List<Product> findAllByCategoryIdAndStatusAndNameContains(Integer cateId, Integer status, String nameQuery, Pageable pageable);
+    List<Product> findAllByStatusAndNameContains(Integer status, String nameQuery, Pageable pageable);
+    List<Product> findAllByCategoryIdAndNameContains(Integer cateIdString, String nameQuery, Pageable pageable);
+    List<Product> findAllByNameContains(String nameQuery, Pageable pageable);
+
+
 }
