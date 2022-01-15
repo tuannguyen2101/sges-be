@@ -31,7 +31,14 @@ public class ProdController {
     CategoryService categoryService;
 
     @GetMapping("")
-    public ResponseEntity<Page<Product>> findAll(@RequestParam("cId") Optional<Integer> cId, @RequestParam("name") String name, @RequestParam("n") Optional<Integer> n, @RequestParam("s") Optional<Integer> s, @RequestParam("p") String p, @RequestParam("d") Optional<Integer> d) {
+    public ResponseEntity<Page<Product>> findAll(
+            @RequestParam("cId") Optional<Integer> cId,
+            @RequestParam("name") String name,
+            @RequestParam("n") Optional<Integer> n,
+            @RequestParam("s") Optional<Integer> s,
+            @RequestParam("p") String p,
+            @RequestParam("d") Optional<Integer> d)
+    {
 
         Integer cateId = cId.orElse(null);
         int number = n.orElse(0);
