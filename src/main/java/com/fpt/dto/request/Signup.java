@@ -17,5 +17,5 @@ public class Signup {
     private String fullname;
     private String email;
     private String photo;
-    private Integer status;
+
 }

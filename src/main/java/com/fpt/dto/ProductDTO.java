@@ -23,6 +23,7 @@ public class ProductDTO {
 	private Date createDate;
 	private Integer status;
 	private Integer categoryId;
+	private String categoryName;
 	private List<ProductDetail> productDetails;
 
 }
