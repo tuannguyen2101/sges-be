@@ -19,8 +19,8 @@
         </introspection-scope>
       </schema-mapping>
     </data-source>
-    <data-source name="@localhost" uuid="4b95864a-4b49-41c8-93ea-dd8c0eaeb1e9">
-      <database-info product="MySQL" version="8.0.25" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.25 (Revision: 08be9e9b4cba6aa115f9b27b215887af40b159e0)" dbms="MYSQL" exact-version="8.0.25" exact-driver-version="8.0">
+    <data-source name="j6shop@localhost" uuid="4b95864a-4b49-41c8-93ea-dd8c0eaeb1e9">
+      <database-info product="MySQL" version="5.7.34-log" jdbc-version="4.2" driver-name="MySQL Connector/J" driver-version="mysql-connector-java-8.0.21 (Revision: 33f65445a1bcc544eb0120491926484da168f199)" dbms="MYSQL" exact-version="5.7.34" exact-driver-version="8.0">
         <extra-name-characters>#@</extra-name-characters>
         <identifier-quote-string>`</identifier-quote-string>
       </database-info>

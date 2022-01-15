@@ -31,12 +31,42 @@ public class ProductServiceImpl implements ProductService {
     @Autowired
     CategoryRepo categoryRepo;
 
-//	@Override
-//	public List<ProductDTO> findAll() {
-//		return this.productRepo.findAll().stream()
-//				.map(e -> this.productMapper.cvToDTO(e))
-//				.collect(Collectors.toList());
-//	}
+    @Override
+    public List<ProductDTO> findAllUsingFilter(Integer page, Integer cateId, Integer status,
+        String nameQuery) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.productRepo.findAllByCategoryIdAndStatusAndNameContains(cateId, status, nameQuery, pageable)
+            .stream()
+            .map(e -> this.productMapper.cvToDTO(e))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> findAllByCateAndName(Integer page, Integer cateId, String nameQuery) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.productRepo.findAllByCategoryIdAndNameContains(cateId, nameQuery, pageable)
+            .stream()
+            .map(e -> this.productMapper.cvToDTO(e))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> findAllByStatusAndName(Integer page, Integer status, String nameQuery) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.productRepo.findAllByStatusAndNameContains(status, nameQuery, pageable)
+            .stream()
+            .map(e -> this.productMapper.cvToDTO(e))
+            .collect(Collectors.toList());
+    }
+
+    @Override
+    public List<ProductDTO> findAllByName(Integer page, String nameQuery) {
+        Pageable pageable = PageRequest.of(page, 10);
+        return this.productRepo.findAllByNameContains(nameQuery, pageable)
+            .stream()
+            .map(e -> this.productMapper.cvToDTO(e))
+            .collect(Collectors.toList());
+    }
 
     @Override
     public Page<Product> findAll(Pageable pageable) {
@@ -50,15 +80,6 @@ public class ProductServiceImpl implements ProductService {
                 .map(e -> this.productMapper.cvToDTO(e))
                 .collect(Collectors.toList());
     }
-
-//	@Override
-//	public List<ProductDTO> findByCategory(Integer id) {
-//		Category cate = this.categoryRepo.findById(id).get();
-//		Pageable pageable = PageRequest.of(0, 10);
-//		return this.productRepo.findByCategory(cate, pageable).stream()
-//				.map(e -> this.productMapper.cvToDTO(e))
-//				.collect(Collectors.toList());
-//	}
 
     @Override
     public Page<Product> findByCategoryId(Integer categoryId, Pageable pageable) {
@@ -115,14 +136,5 @@ public class ProductServiceImpl implements ProductService {
         this.productRepo.delete(this.productMapper.cvToEntity(dto));
         return dto;
     }
-
-//	@Override
-//	public List<ProductDTO> findAllByPaginate(Integer page) {
-//		Pageable sortedByName =
-//				  PageRequest.of(page, 3, Sort.by("id").descending());
-//		return this.productRepo.findAll(sortedByName).stream()
-//				.map(e -> this.productMapper.cvToDTO(e))
-//				.collect(Collectors.toList());
-//	}
 
 }
