@@ -12,7 +12,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
-import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -34,7 +33,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public List<ProductDTO> findAllUsingFilter(Integer page, Integer cateId, Integer status,
         String nameQuery) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
         return this.productRepo.findAllByCategoryIdAndStatusAndNameContains(cateId, status, nameQuery, pageable)
             .stream()
             .map(e -> this.productMapper.cvToDTO(e))
@@ -43,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> findAllByCateAndName(Integer page, Integer cateId, String nameQuery) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
         return this.productRepo.findAllByCategoryIdAndNameContains(cateId, nameQuery, pageable)
             .stream()
             .map(e -> this.productMapper.cvToDTO(e))
@@ -52,7 +51,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> findAllByStatusAndName(Integer page, Integer status, String nameQuery) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
         return this.productRepo.findAllByStatusAndNameContains(status, nameQuery, pageable)
             .stream()
             .map(e -> this.productMapper.cvToDTO(e))
@@ -61,7 +60,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public List<ProductDTO> findAllByName(Integer page, String nameQuery) {
-        Pageable pageable = PageRequest.of(page, 10);
+        Pageable pageable = PageRequest.of(page, 10, Sort.by("id").descending());
         return this.productRepo.findAllByNameContains(nameQuery, pageable)
             .stream()
             .map(e -> this.productMapper.cvToDTO(e))
