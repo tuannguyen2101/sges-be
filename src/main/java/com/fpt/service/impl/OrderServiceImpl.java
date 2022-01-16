@@ -103,7 +103,7 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public Page<Order> sGetAll(Pageable pageable) {
         try {
-            return orderRepo.findAll(pageable);
+            return orderRepo.sGetAll(pageable);
         } catch (Exception e) {
             log.error("error: " + e);
             return null;
@@ -137,7 +137,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<Order> sGetAllByName(String name, Pageable pageable) {
-        return null;
+        try {
+            return orderRepo.sGetAllByName(name, pageable);
+        } catch (Exception e) {
+            log.error("error: " + e);
+            return null;
+        }
     }
 
     @Override
@@ -157,7 +162,12 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<Order> sGetAllByStatusAndName(Integer status, String name, Pageable pageable) {
-        return null;
+        try {
+            return orderRepo.sGetAllByStatusAndName(status, name, pageable);
+        } catch (Exception e) {
+            log.error("error: " + e);
+            return null;
+        }
     }
 
     @Override
@@ -167,6 +177,21 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Page<Order> sGetAllByPaymentAndName(Integer payment, String name, Pageable pageable) {
-        return null;
+        try {
+            return orderRepo.sGetAllByPaymentAndName(payment, name, pageable);
+        } catch (Exception e) {
+            log.error("error: " + e);
+            return null;
+        }
+    }
+
+    @Override
+    public Page<Order> sGetAllByStatusAndPaymentAndName(Integer status, Integer payment, String name, Pageable pageable) {
+        try {
+            return orderRepo.sGetAllByStatusAndPaymentAndName(status, payment, name, pageable);
+        } catch (Exception e) {
+            log.error("error: " + e);
+            return null;
+        }
     }
 }

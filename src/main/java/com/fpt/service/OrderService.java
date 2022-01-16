@@ -31,8 +31,8 @@ public interface OrderService{
 
     Page<Order> sGetAllByStatus(Integer status, Pageable pageable);
     Page<Order> sGetAllByPayment(Integer payment, Pageable pageable);
-    Page<Order> sGetAllByDate(Date dateFrom, Date dateTo, Pageable pageable);
     Page<Order> sGetAllByName(String name, Pageable pageable);
+    Page<Order> sGetAllByDate(Date dateFrom, Date dateTo, Pageable pageable);
     // status
     Page<Order> sGetAllByStatusAndPayment(Integer status, Integer payment, Pageable pageable);
     Page<Order> sGetAllByStatusAndDate(Integer status, Date dateFrom, Date dateTo, Pageable pageable);
@@ -41,5 +41,7 @@ public interface OrderService{
     Page<Order> sGetAllByPaymentAndDate(Integer payment, Date dateFrom, Date dateTo, Pageable pageable);
     Page<Order> sGetAllByPaymentAndName(Integer payment, String name, Pageable pageable);
 
+    // name
+    Page<Order> sGetAllByStatusAndPaymentAndName(Integer status, Integer payment, String name, Pageable pageable);
 
 }

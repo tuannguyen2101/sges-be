@@ -34,7 +34,19 @@ public interface OrderRepo extends JpaRepository<Order, Integer> {
     @Query(value = "SELECT * FROM orders WHERE payment = :payment", nativeQuery = true)
     Page<Order> sGetAllByPayment(@Param("payment") Integer payment, Pageable pageable);
 
+    @Query(value = "SELECT * FROM orders WHERE name = %:name%", nativeQuery = true)
+    Page<Order> sGetAllByName(@Param("name") String name, Pageable pageable);
+
     @Query(value = "SELECT * FROM orders WHERE status = :status and payment = :payment", nativeQuery = true)
     Page<Order> sGetAllByStatusAndPayment(@Param("status") Integer status, @Param("payment") Integer payment, Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders WHERE status = :status and name like %:name%", nativeQuery = true)
+    Page<Order> sGetAllByStatusAndName(@Param("status") Integer status, @Param("name") String name, Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders WHERE payment = :payment and name like %:name%", nativeQuery = true)
+    Page<Order> sGetAllByPaymentAndName(@Param("payment") Integer payment, @Param("name") String name, Pageable pageable);
+
+    @Query(value = "SELECT * FROM orders WHERE status = :status and payment = :payment and name like %:name%", nativeQuery = true)
+    Page<Order> sGetAllByStatusAndPaymentAndName(@Param("status") Integer status, @Param("payment") Integer payment, @Param("name") String name, Pageable pageable);
 
 }

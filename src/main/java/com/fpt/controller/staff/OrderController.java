@@ -89,25 +89,33 @@ public class OrderController {
                 if (name.equals("")) {
                     if (paymentCheck == null) {
                         if (statusCheck == null) {
-                            pageable = directionCheck == 0 ?
-                                    PageRequest.of(numberCheck, sizeCheck, Sort.by(Sort.Direction.ASC, "createDate"))
-                                    : PageRequest.of(numberCheck, sizeCheck, Sort.by(Sort.Direction.DESC, "createDate"));
                             orders = orderService.sGetAll(pageable);
                         } else {
                             orders = orderService.sGetAllByStatus(statusCheck, pageable);
                         }
                     } else {
                         if (statusCheck == null) {
-//                            pageable = directionCheck == 0 ?
-//                                    PageRequest.of(numberCheck, sizeCheck, Sort.by(Sort.Direction.ASC, "createDate"))
-//                                    : PageRequest.of(numberCheck, sizeCheck, Sort.by(Sort.Direction.DESC, "createDate"));
                             orders = orderService.sGetAllByPayment(paymentCheck, pageable);
                         } else {
                             orders = orderService.sGetAllByStatusAndPayment(statusCheck, paymentCheck, pageable);
                         }
                     }
-                    return new ResponseEntity<>(orders, HttpStatus.OK);
+                } else {
+                    if (paymentCheck == null) {
+                        if (statusCheck == null) {
+                            orders = orderService.sGetAllByName(name, pageable);
+                        } else {
+                            orders = orderService.sGetAllByStatusAndName(statusCheck, name, pageable);
+                        }
+                    } else {
+                        if (statusCheck == null) {
+                            orders = orderService.sGetAllByPaymentAndName(paymentCheck, name, pageable);
+                        } else {
+                            orders = orderService.sGetAllByStatusAndPaymentAndName(statusCheck, paymentCheck, name, pageable);
+                        }
+                    }
                 }
+                return new ResponseEntity<>(orders, HttpStatus.OK);
             }
             return new ResponseEntity<>(HttpStatus.NO_CONTENT);
         } catch (Exception e) {
