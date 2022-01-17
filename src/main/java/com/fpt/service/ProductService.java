@@ -11,7 +11,14 @@ import java.util.List;
 @Service
 public interface ProductService {
 
-//    List<ProductDTO> findAll();
+
+    List<ProductDTO> findAllUsingFilter(Integer page, Integer cateId, Integer status, String nameQuery);
+
+    List<ProductDTO> findAllByCateAndName(Integer page, Integer cateId, String nameQuery);
+
+    List<ProductDTO> findAllByStatusAndName(Integer page, Integer status, String nameQuery);
+
+    List<ProductDTO> findAllByName(Integer page, String nameQuery);
 
     Page<Product> findAll(Pageable pageable);
 
@@ -19,9 +26,6 @@ public interface ProductService {
 
     List<ProductDTO> findByStatus(Integer page, Integer status);
 
-//    List<ProductDTO> findAllByPaginate(Integer page);
-
-//    List<ProductDTO> findByCategory(Integer id);
     Page<Product> findByCategoryId(Integer categoryId, Pageable pageable);
 
     ProductDTO findById(Integer id);
